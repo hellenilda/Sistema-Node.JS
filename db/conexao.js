@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize')
+
+// Conexao com o BD
 const sequelize = new Sequelize('banco','root','senhaAqui', {
     host: 'localhost',
     dialect: 'mysql'
 })
 
+// Model
 const Postagem = sequelize.define('postagens', {
     titulo: {
         type: Sequelize.STRING
