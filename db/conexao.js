@@ -35,3 +35,16 @@ const Usuario = sequelize.define('usuarios', {
 (só precisa executar uma vez) */
 Postagem.sync({force: true})
 Usuario.sync({force: true})
+
+/* Inserir dados na tabela */
+Postagem.create({
+    titulo: 'TITULO',
+    conteudo: 'CONTEÚDO'
+})
+
+Usuario.create({
+    nome: 'Sky',
+    sobrenome: 'Kiki',
+    idade: 1,
+    email: 'email@gmail.com'
+})
