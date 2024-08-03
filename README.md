@@ -2,11 +2,19 @@
 
 Sistema para gerenciamento de usuários com Node.JS
 
-## Instalação
+## Tecnologias utilizadas
+- [Node.js](https://nodejs.org/en/download/prebuilt-installer)
+- [Express](https://expressjs.com/)
+- [Handlebars](https://handlebarsjs.com/)
+- [Sequelize](https://sequelize.org/)
+- [DB Browser for SQLite](https://sqlitebrowser.org/)
 
-1. Clone o repositório:
+## Instalação
+1. Clone e entre no repositório:
     ```sh
     git clone https://github.com/hellenilda/Sistema-Node.JS.git
+    ```
+    ```sh
     cd Sistema-Node.JS/
     ```
 
@@ -20,10 +28,8 @@ Sistema para gerenciamento de usuários com Node.JS
 3. Configure o banco de dados:
     - Utilize o DB Browser for SQLite para criar e configurar seu banco de dados SQLite.
     - O arquivo de configuração do BD deste projeto se encontra em /db/banco.db
-    ```
 
 ## Uso
-
 1. Inicie o servidor:
     ```sh
     nodemon app.js
@@ -49,11 +55,4 @@ Sistema para gerenciamento de usuários com Node.JS
 ├── package-lock.json
 ├── package.json
 └── README.md
-
-
-## Tecnologias utilizadas
-- Node.js (npm/nodemon)
-- Express
-- Handlebars
-- Sequelize
-- DB Browser for SQLite
+```
