@@ -1,36 +1,34 @@
 const express = require('express')
 const app = express()
 const { engine } = require('express-handlebars')
-const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
+const Post = require('./models/Post')
 PORT = 3000
 
-// Hospedando o servidor na porta 3000 (PORT)
-app.listen(PORT, () => {
-    console.log('Servidor rodando na porta ' + PORT)
-})
-
 // Usando o Handlebars como Template Engine
-app.engine('handlebars', engine({defaultLayout: 'main'}))
+app.engine('handlebars', engine({
+    defaultLayout: 'main',
+    // Permitir o acesso a propriedades do protótipo:
+    runtimeOptions: {
+    allowProtoPropertiesByDefault: true
+    }
+}))
 app.set('view engine','handlebars')
 
 // Body Parser
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-// Conexão com o banco de dados
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './src/db/banco.db'
-}).authenticate().then(function(){
-    console.log('Conectou ao banco com sucesso')
-}).catch(function(erro){
-    console.log('Erro ao conectar: ' + erro)
-})
-
 // Rotas
 app.get('/', (req, res) => {
-    res.send('Rota /')
+    // Exibir todas as postagens: Mais recente -> mais antiga
+    Post.findAll({order: [['id','DESC']]})
+    .then((posts) => {
+        res.render('home', { posts: posts })
+    })
+    .catch((erro) => {
+        res.send('Houve um erro: '+erro)
+    })
 })
 
 app.get('/cadastro', (req, res) => {
@@ -38,6 +36,19 @@ app.get('/cadastro', (req, res) => {
 })
 
 app.post('/add', (req, res) => {
-    req.body.conteudo
-    res.send('Texto: ' + req.body.titulo + ' | Conteúdo: ' + req.body.conteudo)
+    Post.create({
+        titulo: req.body.titulo,
+        conteudo: req.body.conteudo
+    })
+    .then(() => {
+        res.redirect('/')
+    })
+    .catch((erro) => {
+        res.send('Houve um erro:'+erro)
+    })
+})
+
+// Hospedando o servidor na porta 3000 (PORT)
+app.listen(PORT, () => {
+    console.log('Acesse em http://localhost:' + PORT)
 })
